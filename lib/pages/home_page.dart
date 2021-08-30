@@ -78,9 +78,14 @@ class _HomePageState extends State<HomePage> {
       var resultList = convert.jsonDecode(response.body);
       print(resultList);
 
-      // แปลง Dart's data structure ไปเป็น model (ถ้าในภาษา Java จะเรียก POJO - Plain Old Java Object)
-      // โดยใช้ factory constructor ที่สร้างไว้ในคลาส TodoModel
-      _todoList = resultList.map((item) => TodoModel.fromJson(item)).toList();
+      // บอกให้ Flutter ทำการ rebuild หลังจากทำโค้ดข้างใน setState แล้ว
+      setState(() {
+        // แปลง Dart's data structure ไปเป็น model (ถ้าในภาษา Java จะเรียก POJO - Plain Old Java Object)
+        // โดยใช้ factory constructor ที่สร้างไว้ในคลาส TodoModel
+        _todoList = resultList
+            .map<TodoModel>((item) => TodoModel.fromJson(item))
+            .toList();
+      });
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
