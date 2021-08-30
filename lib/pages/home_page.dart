@@ -19,50 +19,52 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('CALLING API DEMO'),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        color: Colors.pink.withOpacity(0.1),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'ตัวอย่างการเรียก API: https://jsonplaceholder.typicode.com/todos',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20.0),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: _handleClickButton,
-                child: Text('GO!'),
+      body: SizedBox.expand(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          color: Colors.pink.withOpacity(0.1),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'ตัวอย่างการเรียก API: https://jsonplaceholder.typicode.com/todos',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20.0),
               ),
-            ),
-            // ใช้ collection if ในการเลือกว่าจะแสดง widget ออกมาหรือไม่ (if นี้ไม่ใช่ statement)
-            if (_todoList != null)
-              Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: _todoList!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    TodoModel item = _todoList![index];
-
-                    // return widget ที่เป็นตัว item ใน list
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            Expanded(child: Text(item.title)),
-                            if (item.completed)
-                              Icon(Icons.check, color: Colors.green),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: _handleClickButton,
+                  child: Text('GO!'),
                 ),
               ),
-          ],
+              // ใช้ collection if ในการเลือกว่าจะแสดง widget ออกมาหรือไม่ (if นี้ไม่ใช่ statement)
+              if (_todoList != null)
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: _todoList!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      TodoModel item = _todoList![index];
+
+                      // return widget ที่เป็นตัว item ใน list
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            children: [
+                              Expanded(child: Text(item.title)),
+                              if (item.completed)
+                                Icon(Icons.check, color: Colors.green),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
